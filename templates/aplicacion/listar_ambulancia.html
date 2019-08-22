@@ -1,0 +1,70 @@
+{% extends 'aplicacion/baseListar.html' %}
+{% load crispy_forms_tags %}
+{% block main %}
+{% load static %}
+    <div class="container" align="center">
+        <h1 class="jumbotron-heading"><img style="width:100px; height:100px;" src="{% static 'img/banner.jpg' %}" alt="logo" >
+            Ambulancias Registradas</h1>
+    </div>
+    <hr align="center" noshade="noshade" size="10" width="95%" />
+    <div class="container">
+        <div class="tabAmbulancia">
+            {% for ambulancia in object_list %}
+            <button class="tablinks" onclick="openCity(event, {{ambulancia.numeroMovil}})"> {{ambulancia.numeroMovil}} </button>
+            {% endfor %}
+        </div>
+
+        {% for ambulancia in object_list %}
+        <div id="{{ambulancia.numeroMovil}}" class="tabcontent">
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="col-xs-7">
+                    <div class="form-group">
+                        <label>Número de movil</label>
+                        <input type="number" class="form-control" value="{{ambulancia.numeroMovil}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Responsable</label>
+                        <input type="text" class="form-control" value="{{ambulancia.responsable}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono del responable</label>
+                        <input type="number" class="form-control" value="{{ambulancia.telefonoR}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Placa</label>
+                        <input type="text" class="form-control" value="{{ambulancia.placa}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Marca</label>
+                        <input type="text" class="form-control" value="{{ambulancia.marca}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Modelo</label>
+                        <input type="text" class="form-control" value="{{ambulancia.modeloA}}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Ultima ubicación registrada</label>
+                        <input type="text" class="form-control" value="{{ambulancia.ubicacion}}" disabled>
+                    </div>
+                </div>
+                <div class="col-xs-5">
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <img  src="{{ambulancia.foto.url}}" alt="{{ambulancia.foto}}" width="500px" height="284px" >
+                    </div>
+                </div>
+                <div class="form-group" align="center">
+                    <a class="btn btn-primary btn-lg" href="{% url 'aplicacion:editar_ambulancia' ambulancia.numeroMovil %}"> Editar ambulancia </a>
+                    <a class="btn btn-primary btn-lg" href="{% url 'aplicacion:eliminar_ambulancia' ambulancia.numeroMovil %}"> Eliminar ambulancia </a>
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+
+    </div>
+    <hr align="center" noshade="noshade" size="10" width="95%" />
+    <div class="container" align="center">
+        <a href="../crear_ambulancia" class="btn btn-primary btn-lg">Agregar Ambulancia</a>
+    </div>
+{% endblock %}

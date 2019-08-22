@@ -1,0 +1,44 @@
+from django.conf.urls import url
+from django.urls import path
+from .views import *
+from django.conf import settings
+from django.conf.urls.static import static
+
+app_name = 'aplicacion'
+
+urlpatterns = [
+    path('', home, name="index"),
+    #path('crear_paciente/',crearPaciente, name = "crear_paciente"),
+    #path('listar_paciente/', listarPaciente, name="listar_paciente"),
+    #path('editar_paciente/<int:cedula>/', editarPaciente, name="editar_paciente"),
+    #path('eliminar_paciente/<int:cedula>/', eliminarPaciente, name="eliminar_paciente"),
+    # forma usando vistas basadas en clases
+    path('crear_paciente/', createPaciente.as_view(), name="crear_paciente"),
+    path('listar_paciente/', listPaciente.as_view(), name="listar_paciente"),
+    path('editar_paciente/<int:pk>/', updatePaciente.as_view(), name="editar_paciente"),
+    path('eliminar_paciente/<int:pk>/', deletePaciente.as_view(), name="eliminar_paciente"),
+
+    #Ambulancias
+    path('crear_ambulancia/', createAmbulancia.as_view(), name="crear_ambulancia"),
+    path('listar_ambulancia/', listAmbulancia.as_view(), name="listar_ambulancia"),
+    path('editar_ambulancia/<int:pk>/', updateAmbulancia.as_view(), name="editar_ambulancia"),
+    path('eliminar_ambulancia/<int:pk>/', deleteAmbulancia.as_view(), name="eliminar_ambulancia"),
+
+    # Hospitales
+    path('crear_hospital/', createHospital.as_view(), name="crear_hospital"),
+    path('listar_hospital/', listHospital.as_view(), name="listar_hospital"),
+    path('editar_hospital/<int:pk>/', updateHospital.as_view(), name="editar_hospital"),
+    path('eliminar_hospital/<int:pk>/', deleteHospital.as_view(), name="eliminar_hospital"),
+
+    # Webservice Archivos
+    path('listar_archivos/', listar_archivos),
+    path('listar_archivo/<int:pk>', listar_un_archivo),
+
+
+    # Webservice Emergencia
+    path('emergencia_ambulancia/<int:numeroMovil>', emergencia_ambulancia),
+    path('terminar_emergencia/', terminar_emergencia),
+    path('listar_emergencias/', emergencias),
+    path('crear_emergencia/', crear_emergencia),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

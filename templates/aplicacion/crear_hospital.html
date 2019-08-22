@@ -1,0 +1,22 @@
+{% extends 'aplicacion/baseCrear.html' %}
+{% load crispy_forms_tags %}
+{% block main %}
+{% load static %}
+    <div class="container" align="center">
+        <h1 class="jumbotron-heading"><img style="width:100px; height:100px;" src="{% static 'img/banner.jpg' %}" alt="logo" >
+            Registrar Hospital</h1>
+    </div>
+    <hr align="center" noshade="noshade" size="10" width="95%" />
+    <div class="container">
+        <form action="" method="post">
+            <div class="form-group">
+                {% csrf_token %}
+                {{ form | crispy }}
+            </div>
+            <div class="form-group" align="center">
+                <button type="submit" class="btn btn-danger btn-lg">Registrar información</button>
+            </div>
+        </form>
+    </div>
+    <br><br>
+{% endblock %}
