@@ -1,1 +1,1 @@
-web: gunicorn samuems.wsgi --log-file -
+web: gunicorn pisamuems.wsgi --log-file -
