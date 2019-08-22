@@ -292,7 +292,7 @@ def crearEmergencia(paciente, sintomas, lat, lon):
             print(error)
 
 # Vista para crear un nuevo archivo
-'''@api_view(['POST'])
+@api_view(['POST'])
 def crear_emergencia(request):
     if request.method == 'POST':
         archivoSerializado = ArchivoSerializador(data=request.data)
@@ -309,8 +309,8 @@ def crear_emergencia(request):
             archivoSerializado.update(archivo, nombreArchivo)
             return Response(archivoSerializado.data, status=status.HTTP_201_CREATED)
     return Response(archivoSerializado.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
-@api_view(['GET'])
+
+'''@api_view(['GET'])
 def crear_emergencia(request):
     if request.method == 'GET':
         archivoSerializado = ArchivoSerializador(data=request.data)
@@ -327,7 +327,7 @@ def crear_emergencia(request):
             archivoSerializado.update(archivo, nombreArchivo)
             return Response(archivoSerializado.data, status=status.HTTP_201_CREATED)
     return Response(archivoSerializado.errors, status=status.HTTP_400_BAD_REQUEST)
-
+'''
 # Método interno que crea el archivo
 def crearArchivo(cedualPaciente, texto, lat, lon, hospital, ambulancia, diagnostico):
     path = 'media/archivos/'
