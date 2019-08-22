@@ -365,7 +365,7 @@ def emergencia_ambulancia(request, numeroMovil):
             emergencia = EmergenciaSnippet.objects.filter(ambulancia=numeroMovil).order_by('-id')[0]
         except EmergenciaSnippet.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializarEmergencia = EmergenciaSerializador(emergencia.last)
+        serializarEmergencia = EmergenciaSerializador(emergencia)
         return Response(serializarEmergencia.data)
 
 # Vista para retornar la emergencia asignada
