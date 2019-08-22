@@ -307,8 +307,8 @@ def crear_emergencia(request):
                                          emergencia.data['hospital'], emergencia.data['ambulancia'], emergencia.data['diagnostico'])
             archivo = ArchivoSnippet.objects.last()
             archivoSerializado.update(archivo, nombreArchivo)
-            return Response(archivoSerializado.data, status=status.HTTP_201_CREATED)
-    return Response(archivoSerializado.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=status.HTTP_201_CREATED)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
 
 '''@api_view(['GET'])
 def crear_emergencia(request):
@@ -362,7 +362,7 @@ def listar_un_archivo(request, pk):
 def emergencia_ambulancia(request, numeroMovil):
     if request.method == 'GET':
         try:
-            emergencia = EmergenciaSnippet.objects.get(ambulancia=numeroMovil)
+            emergencia = EmergenciaSnippet.objects.filter(ambulancia=numeroMovil).order_by('-id')[0]
         except EmergenciaSnippet.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializarEmergencia = EmergenciaSerializador(emergencia.last)
