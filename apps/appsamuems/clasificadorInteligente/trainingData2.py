@@ -10,18 +10,6 @@ training_data = {  # Datos para entrenar al clasificador
     #"Tecnologia": [
     #    'https://es.wikipedia.org/wiki/Tecnolog%C3%ADa',
     #],
-    "Alergia": [
-        'https://www.mayoclinic.org/es-es/diseases-conditions/allergies/symptoms-causes/syc-20351497',
-        'https://medlineplus.gov/spanish/allergy.html',
-        'https://cuidateplus.marca.com/enfermedades/alergias/alergia.html',
-        'http://pacientes.seicap.es/es/-qu%C3%A9-es-la-alergia-_23832',
-        #'https://es.wikipedia.org/wiki/Alergia',
-        #'https://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/prevencion-salud/que-es-alergia.html',
-        #'https://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/prevencion-salud/alergias-piel.html',
-        #'https://alergia.leti.com/es/que-es-la-alergia_945',
-        #'https://www.mayoclinic.org/es-es/diseases-conditions/allergies/symptoms-causes/syc-20351497',
-        #'https://kidshealth.org/es/kids/allergies-esp.html'
-    ],
     "Apendicitis": [
         'https://www.mayoclinic.org/es-es/diseases-conditions/appendicitis/symptoms-causes/syc-20369543',
         'https://cuidateplus.marca.com/enfermedades/digestivas/apendicitis.html',
@@ -57,20 +45,7 @@ training_data = {  # Datos para entrenar al clasificador
         #'https://accessmedicina.mhmedical.com/content.aspx?bookid=1846&sectionid=130559219',
         #'https://www.pfizerpro.es/news/asma-como-actuar-ante-una-crisis-de-asma',
         #'https://www.madrid.es/ficheros/SAMUR/data/310_01.htm'
-    ],
-    "Diabetes": [
-        'https://cuidateplus.marca.com/enfermedades/digestivas/diabetes.html',
-        'https://medlineplus.gov/spanish/diabetes.html',
-        'https://www.niddk.nih.gov/health-information/informacion-de-la-salud/diabetes/informacion-general/que-es',
-        'https://www.mayoclinic.org/es-es/diseases-conditions/diabetes/symptoms-causes/syc-20371444',
-        #'https://www.fundaciondiabetes.org/infantil/176/que-es-la-diabetes-ninos',
-        #'http://www.diabetes.org/es/informacion-basica-de-la-diabetes/',
-        #'https://www.cdc.gov/diabetes/spanish/basics/diabetes.html',
-        #'https://fundaciondelcorazon.com/prevencion/riesgo-cardiovascular/diabetes.html',
-        #'http://www.msal.gob.ar/ent/index.php/informacion-para-ciudadanos/diabetes',
-        #'https://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/dieta-alimentacion/diabetes/que-es-diabetes.html'
-    ],
-    "Dolor abdominal": [
+    ],"Dolor abdominal": [
         'https://medlineplus.gov/spanish/ency/article/003120.htm',
         'https://medlineplus.gov/spanish/abdominalpain.html',
         'https://www.msdmanuals.com/es-co/hogar/trastornos-gastrointestinales/s%C3%ADntomas-de-los-trastornos-digestivos/dolor-abdominal-agudo',
@@ -166,18 +141,6 @@ training_data = {  # Datos para entrenar al clasificador
     #    'https://www.ecured.cu/Lipotimia',
     #    'https://www.cun.es/diccionario-medico/terminos/lipotimia'
     #],
-    "Neumonia": [
-        'https://www.mayoclinic.org/es-es/diseases-conditions/pneumonia/symptoms-causes/syc-20354204',
-        'https://medlineplus.gov/spanish/ency/article/000145.htm',
-        'https://medlineplus.gov/spanish/pneumonia.html',
-        'https://cuidateplus.marca.com/enfermedades/respiratorias/neumonia.html',
-        #'https://kidshealth.org/es/teens/pneumonia-esp.html',
-        #'https://www.who.int/es/news-room/fact-sheets/detail/pneumonia',
-        #'https://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/prevencion-salud/neumonia.html',
-        #'https://www.msdmanuals.com/es-co/hogar/trastornos-del-pulm%C3%B3n-y-las-v%C3%ADas-respiratorias/neumon%C3%ADa/introducci%C3%B3n-a-la-neumon%C3%ADa',
-        #'https://www.cun.es/enfermedades-tratamientos/enfermedades/neumonia',
-        #'https://www.healthychildren.org/Spanish/health-issues/conditions/chest-lungs/Paginas/Pneumonia.aspx'
-    ],
     "Politraumatismo": [
         'https://www.elsevier.es/es-revista-medicina-integral-63-articulo-politraumatismo-craneoencefalico-toracicoabdominal-medular-13020961',
         'https://www.cun.es/diccionario-medico/terminos/politraumatismo',

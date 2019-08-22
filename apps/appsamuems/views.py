@@ -10,6 +10,9 @@ from decimal import Decimal
 from datetime import datetime
 from django.http import JsonResponse
 
+from .clasificadorInteligente.StringClf import *
+from .clasificadorInteligente.getPage import *
+from .clasificadorInteligente.trainingData2 import training_data as DataH
 from .models import *
 from .forms import *
 from .serializers import *
@@ -271,14 +274,17 @@ def crearEmergencia(paciente, sintomas, lat, lon):
     stringFecha = fecha.strftime("%Y-%m-%d %H-%M-%S")
     idAmbulancia = ambulanciaMasCercana(lat, lon)
     idHospital = hospitalMasCercano(lat, lon)
-    #with open('clf', 'rb') as clasificador:
-     #   modelo = pickle.load(clasificador)
-    #diagnostico = modelo.String(sintomas)
+    clf = Classifier()  # Instancia del clasificador
+
+    for category, urls in DataH.items():  # Entrenamos al clasificador con el contenido de cada pagina
+        for url in urls:
+            clf.train(getTextPage(url), category)
+    diagnostico = clf.String(sintomas)
     datos = {
         "paciente": paciente,
         "ambulancia": idAmbulancia,
         "hospital": idHospital,
-        "diagnostico": "prueba1",
+        "diagnostico": diagnostico,
         "lat": lat,
         "lon": lon,
         "sintomas": sintomas,

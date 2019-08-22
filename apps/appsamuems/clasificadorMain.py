@@ -5,9 +5,11 @@ Uso sencillo de "StringTagger" para el etiquetado (clasificación) de texto.
 import pickle
 import time
 
+from appsamuems.clasificadorInteligente.StringClf import Classifier
+
 __author__ = "ProyectoIntegrador"
 
-#clf = Classifier() # Instancia del clasificador
+clf = Classifier() # Instancia del clasificador
 
 '''for category, urls in DataH.items(): # Entrenamos al clasificador con el contenido de cada pagina
 	for url in urls:
@@ -27,8 +29,8 @@ Crear el archivo con la informacion del entrenamiento
 """
 Usar el archivo creado con la informacion del entrenamiento
 """
-with open('clf', 'rb') as clasificador:
-	modelo = pickle.load(clasificador)
+with open('clf', 'rb') as clf:
+	modelo = pickle.load(clf)
 
 string = "sangrado en las muelas del juicio final 2"
 #clas = modelo.String(string)
