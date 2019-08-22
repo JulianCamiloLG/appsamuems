@@ -14,6 +14,7 @@ from .forms import *
 from .serializers import *
 # Crear vistas basadas en clases
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView
+import json
 
 
 # Create your views here.
@@ -295,6 +296,7 @@ def crearEmergencia(paciente, sintomas, lat, lon):
 @api_view(['POST'])
 def crear_emergencia(request):
     if request.method == 'POST':
+        print(json.loads(request.body))
         archivoSerializado = ArchivoSerializador(data=request.data)
         if archivoSerializado.is_valid():
             cedula = request.POST['cedulaPaciente']
