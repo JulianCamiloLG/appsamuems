@@ -8,6 +8,7 @@ import os
 from decimal import Decimal
 
 from datetime import datetime
+from django.http import JsonResponse
 
 from .models import *
 from .forms import *
@@ -295,14 +296,14 @@ def crearEmergencia(paciente, sintomas, lat, lon):
 # Vista para crear un nuevo archivo
 @api_view(['POST'])
 def crear_emergencia(request):
+    datos_llegada = json.loads(request.body)
     if request.method == 'POST':
-        print(json.loads(request.body))
-        archivoSerializado = ArchivoSerializador(data=request.data)
+        archivoSerializado = ArchivoSerializador(data=datos_llegada)
         if archivoSerializado.is_valid():
-            cedula = request.POST['cedulaPaciente']
-            sintomas = request.POST['texto']
-            lat = request.POST['lat']
-            lon = request.POST['lon']
+            cedula = datos_llegada['cedulaPaciente']
+            sintomas = datos_llegada['texto']
+            lat = datos_llegada['lat']
+            lon = datos_llegada['lon']
             archivoSerializado.save()
             emergencia = crearEmergencia(cedula, sintomas, lat, lon)
             nombreArchivo = crearArchivo(cedula, sintomas, lat, lon,
@@ -312,34 +313,17 @@ def crear_emergencia(request):
             return Response(status=status.HTTP_201_CREATED)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-'''@api_view(['GET'])
-def crear_emergencia(request):
-    if request.method == 'GET':
-        archivoSerializado = ArchivoSerializador(data=request.data)
-        if archivoSerializado.is_valid():
-            cedula = request.GET['cedulaPaciente']
-            sintomas = request.GET['texto']
-            lat = request.GET['lat']
-            lon = request.GET['lon']
-            archivoSerializado.save()
-            emergencia = crearEmergencia(cedula, sintomas, lat, lon)
-            nombreArchivo = crearArchivo(cedula, sintomas, lat, lon,
-                                         emergencia.data['hospital'], emergencia.data['ambulancia'], emergencia.data['diagnostico'])
-            archivo = ArchivoSnippet.objects.last()
-            archivoSerializado.update(archivo, nombreArchivo)
-            return Response(archivoSerializado.data, status=status.HTTP_201_CREATED)
-    return Response(archivoSerializado.errors, status=status.HTTP_400_BAD_REQUEST)
-'''
+
 # Método interno que crea el archivo
-def crearArchivo(cedualPaciente, texto, lat, lon, hospital, ambulancia, diagnostico):
+def crearArchivo(cedulaPaciente, texto, lat, lon, hospital, ambulancia, diagnostico):
     path = 'media/archivos/'
     if not os.path.exists(path):
         os.makedirs(path)
     fecha = datetime.now()
     stringFecha = fecha.strftime("%d-%m-%Y_%H-%M-%S_")
-    nombreArchivo = stringFecha + cedualPaciente
+    nombreArchivo = stringFecha + str(cedulaPaciente)
     archivoNuevo = open(os.path.join(path, nombreArchivo), "w+")
-    archivoNuevo.write("Paciente: %s \n" % cedualPaciente)
+    archivoNuevo.write("Paciente: %s \n" % str(cedulaPaciente))
     archivoNuevo.write("Sintomas: %s \n" % texto)
     archivoNuevo.write("Pedido desde: %s %s \n" % (str(lat), str(lon)))
     archivoNuevo.write("Asignado a la ambulancia: %s \n" % str(ambulancia))
@@ -365,10 +349,20 @@ def emergencia_ambulancia(request, numeroMovil):
     if request.method == 'GET':
         try:
             emergencia = EmergenciaSnippet.objects.filter(ambulancia=numeroMovil).order_by('-id')[0]
+            json_emergencia = {
+                'id': emergencia.id,
+                'diagnostico': emergencia.diagnostico,
+                'lat': emergencia.lat,
+                'lon': emergencia.lon,
+                'sintomas': emergencia.sintomas,
+                'equipos': emergencia.equipos,
+                'ambulancia': emergencia.ambulancia.numeroMovil,
+                'latOrigen': emergencia.ambulancia.latitud,
+                'lonOrigen': emergencia.ambulancia.longitud
+            }
         except EmergenciaSnippet.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializarEmergencia = EmergenciaSerializador(emergencia)
-        return Response(serializarEmergencia.data)
+        return JsonResponse(json_emergencia)
 
 # Vista para retornar la emergencia asignada
 @api_view(['GET'])
@@ -381,11 +375,12 @@ def emergencias(request):
 # Vista para terminar y actualizar el comentario de una emergencia
 @api_view(['POST'])
 def terminar_emergencia(request):
+    datos_llegada = json.loads(request.body)
     if request.method == 'POST':
         try:
-            emergencia = EmergenciaSnippet.objects.get(pk=request.POST['id'])
+            emergencia = EmergenciaSnippet.objects.get(pk=datos_llegada['id'])
         except EmergenciaSnippet.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         serializarEmergencia = EmergenciaSerializador(emergencia)
-        serializarEmergencia.update(emergencia, request.POST['comentario'])
+        serializarEmergencia.update(emergencia, datos_llegada['comentario'])
         return Response(serializarEmergencia.data)
