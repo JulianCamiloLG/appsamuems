@@ -358,7 +358,8 @@ def emergencia_ambulancia(request, numeroMovil):
                 'equipos': emergencia.equipos,
                 'ambulancia': emergencia.ambulancia.numeroMovil,
                 'latOrigen': emergencia.ambulancia.latitud,
-                'lonOrigen': emergencia.ambulancia.longitud
+                'lonOrigen': emergencia.ambulancia.longitud,
+                'hospital': emergencia.hospital.nombre
             }
         except EmergenciaSnippet.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
