@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'django_cleanup',
     'rest_framework',
+    'corsheaders',
     'clear_cache',
 ]
 # Libreria para aplicar estilos a los formularios
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
